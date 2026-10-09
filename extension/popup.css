@@ -1,0 +1,188 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  background: #0b1020;
+  color: #f4f6ff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --muted: #929bb4;
+  --line: rgba(173, 188, 255, .14);
+  --surface: #141b30;
+  --accent: #9bf0c7;
+  --accent-ink: #10251e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  width: 360px;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 88% 0%, rgba(92, 106, 220, .2), transparent 48%),
+    #0b1020;
+}
+
+main { padding: 22px; }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.brand-mark {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid rgba(155, 240, 199, .32);
+  border-radius: 13px;
+  background: linear-gradient(145deg, rgba(155, 240, 199, .2), rgba(129, 145, 255, .2));
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -.05em;
+}
+
+h1 { margin: 0; font-size: 17px; letter-spacing: -.04em; }
+header p { margin: 3px 0 0; color: var(--muted); font-size: 10px; }
+
+.privacy {
+  padding: 6px 9px;
+  border: 1px solid rgba(155, 240, 199, .22);
+  border-radius: 999px;
+  background: rgba(155, 240, 199, .07);
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.intro { margin-bottom: 20px; }
+.eyebrow {
+  margin: 0 0 7px;
+  color: #a7b4ff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin: 0;
+  font-size: 23px;
+  line-height: 1.12;
+  letter-spacing: -.055em;
+}
+
+.intro-copy {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+label {
+  display: block;
+  color: #d6dcf0;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+input {
+  width: 100%;
+  margin-top: 8px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  outline: none;
+  background: rgba(20, 27, 48, .88);
+  color: #f4f6ff;
+  font: inherit;
+  font-size: 12px;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+input::placeholder { color: #68738f; }
+input:focus { border-color: #a7b4ff; box-shadow: 0 0 0 3px rgba(167, 180, 255, .12); }
+
+.question {
+  margin: 19px 0 9px;
+  color: #d6dcf0;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.choices button {
+  min-height: 66px;
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(20, 27, 48, .72);
+  color: #f1f3ff;
+  cursor: pointer;
+  text-align: left;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease;
+}
+
+.choices button:hover { transform: translateY(-1px); border-color: rgba(167, 180, 255, .55); }
+.choices button.selected {
+  border-color: rgba(155, 240, 199, .65);
+  background: linear-gradient(135deg, rgba(155, 240, 199, .12), rgba(155, 240, 199, .04));
+  box-shadow: inset 0 0 0 1px rgba(155, 240, 199, .08);
+}
+
+.mode-title { display: block; font-size: 10px; font-weight: 700; }
+.mode-detail { display: block; margin-top: 5px; color: var(--muted); font-size: 9px; line-height: 1.35; }
+
+button:focus-visible { outline: 2px solid #a7b4ff; outline-offset: 2px; }
+
+.primary {
+  display: flex;
+  width: 100%;
+  min-height: 43px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 750;
+  transition: transform .16s ease, filter .16s ease;
+}
+
+.primary:hover { transform: translateY(-1px); filter: brightness(1.04); }
+.primary:active { transform: translateY(0); }
+#status { min-height: 15px; margin: 9px 0 0; color: #b7c1dc; font-size: 10px; line-height: 1.4; }
+
+.privacy-note {
+  display: flex;
+  gap: 8px;
+  margin: 13px 0 0;
+  padding: 10px;
+  border: 1px solid rgba(173, 188, 255, .1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .025);
+  color: #8490ab;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.privacy-note strong { color: #b8c1d9; font-weight: 650; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; }
+}

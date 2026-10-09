@@ -1,0 +1,108 @@
+#mia-overlay {
+  position: fixed;
+  z-index: 2147483647;
+  top: 72px;
+  right: 20px;
+  width: min(400px, calc(100vw - 24px));
+  max-height: min(82vh, 760px);
+  overflow: auto;
+  color-scheme: dark;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  color: #f4f6ff;
+  scrollbar-color: #39435e transparent;
+}
+
+.mia-card {
+  overflow: hidden;
+  border: 1px solid rgba(173, 188, 255, .18);
+  border-radius: 20px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(92, 106, 220, .16), transparent 48%),
+    #0d1426;
+  box-shadow: 0 24px 72px rgba(0, 0, 0, .48), 0 4px 16px rgba(0, 0, 0, .25);
+  animation: mia-arrive .24s ease-out both;
+}
+
+.mia-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(173, 188, 255, .12);
+  background: rgba(255, 255, 255, .025);
+}
+
+.mia-head strong { font-size: 15px; letter-spacing: -.04em; }
+.mia-head span { margin-left: 9px; color: #9bf0c7; font-size: 8px; font-weight: 700; letter-spacing: .13em; }
+
+.mia-head button {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid rgba(173, 188, 255, .15);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .04);
+  color: #c2c9dc;
+  cursor: pointer;
+  font: inherit;
+  font-size: 19px;
+}
+
+.mia-head button:hover { background: rgba(255, 255, 255, .1); color: white; }
+.mia-body { padding: 17px; }
+.mia-count { margin-bottom: 15px; color: #929bb4; font-size: 10px; }
+.mia-body section { margin: 0 0 16px; }
+
+.mia-body h3 {
+  margin: 0 0 8px;
+  color: #bdc6e0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.mia-item, .mia-summary {
+  margin-bottom: 7px;
+  padding: 11px 12px;
+  border: 1px solid rgba(173, 188, 255, .11);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .035);
+  color: #e5e9f5;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.mention .mia-item { border-color: rgba(155, 240, 199, .2); }
+.deadline .mia-item { border-color: rgba(255, 208, 124, .22); }
+
+.mia-reminder {
+  width: 100%;
+  margin: 4px 0;
+  padding: 11px 12px;
+  border: 1px solid rgba(155, 240, 199, .35);
+  border-radius: 11px;
+  background: rgba(155, 240, 199, .1);
+  color: #b7f7d7;
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: left;
+  transition: background .16s ease, border-color .16s ease;
+}
+
+.mia-reminder:hover { border-color: #9bf0c7; background: rgba(155, 240, 199, .17); }
+.mia-reminder:focus-visible, .mia-head button:focus-visible { outline: 2px solid #a7b4ff; outline-offset: 2px; }
+.mia-foot { margin-top: 15px; color: #74809b; font-size: 9px; text-align: center; }
+
+@keyframes mia-arrive {
+  from { opacity: 0; transform: translateY(7px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mia-card { animation: none; }
+  .mia-reminder { transition: none; }
+}

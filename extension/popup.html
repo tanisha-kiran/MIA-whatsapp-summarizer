@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>MIA</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <div>
+          <h1>MIA</h1>
+          <p>Local WhatsApp Catch-Up</p>
+        </div>
+      </div>
+      <span class="privacy">LOCAL ONLY</span>
+    </header>
+
+    <section class="intro" aria-labelledby="intro-title">
+      <p class="eyebrow">A little clarity, locally</p>
+      <h2 id="intro-title">Catch up on what matters.</h2>
+      <p class="intro-copy">Get a thoughtful recap of the conversation you have open.</p>
+    </section>
+
+    <label>Your name
+      <input id="name" placeholder="How should MIA recognize you?" autocomplete="name">
+    </label>
+
+    <p class="question">What do you want to know?</p>
+
+    <div class="choices">
+      <button data-mode="summary">
+        <span class="mode-title">Chat recap</span>
+        <span class="mode-detail">The important context</span>
+      </button>
+      <button data-mode="mentions">
+        <span class="mode-title">Your mentions</span>
+        <span class="mode-detail">Where you're addressed</span>
+      </button>
+      <button data-mode="tasks">
+        <span class="mode-title">Your tasks</span>
+        <span class="mode-detail">Requests and follow-ups</span>
+      </button>
+      <button data-mode="deadlines">
+        <span class="mode-title">Dates & reminders</span>
+        <span class="mode-detail">Deadlines and events</span>
+      </button>
+    </div>
+
+    <button id="analyze" class="primary">
+      <span>✦</span> Analyze this chat
+    </button>
+    <p id="status"></p>
+    <p class="privacy-note">
+      <span aria-hidden="true">●</span>
+      <span><strong>Your messages stay on this device.</strong> MIA uses your local service; nothing goes to cloud AI.</span>
+    </p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
   "name": "MIA — Local WhatsApp Catch-Up",
   "version": "0.1.0",
   "description": "Privacy-first local assistant for understanding what you missed on WhatsApp Web.",
-  "permissions": ["storage", "notifications", "tabs"],
+  "permissions": ["storage", "notifications", "tabs", "activeTab", "scripting"],
   "host_permissions": ["http://127.0.0.1:8000/*", "http://localhost:8000/*"],
   "action": {
     "default_title": "MIA — What did I miss?",

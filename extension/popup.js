@@ -23,6 +23,30 @@ document.querySelectorAll("[data-mode]").forEach(btn => {
 
 nameInput.addEventListener("input", () => chrome.storage.local.set({ name: nameInput.value.trim() }));
 
+async function sendAnalysis(tabId, message) {
+  try {
+    return await chrome.tabs.sendMessage(tabId, message);
+  } catch (error) {
+    const messageText = error.message || String(error);
+    if (
+      !messageText.includes("Receiving end does not exist") &&
+      !messageText.includes("Could not establish connection")
+    ) {
+      throw error;
+    }
+  }
+
+  await chrome.scripting.insertCSS({
+    target: { tabId },
+    files: ["content.css"]
+  });
+  await chrome.scripting.executeScript({
+    target: { tabId },
+    files: ["content.js"]
+  });
+  return chrome.tabs.sendMessage(tabId, message);
+}
+
 document.getElementById("analyze").addEventListener("click", async () => {
   const name = nameInput.value.trim();
   if (!name) {
@@ -39,8 +63,11 @@ document.getElementById("analyze").addEventListener("click", async () => {
       status.textContent = "Open WhatsApp Web first.";
       return;
     }
+    if (tab.id === undefined) {
+      throw new Error("Could not identify the active WhatsApp tab.");
+    }
 
-    const response = await chrome.tabs.sendMessage(tab.id, {
+    const response = await sendAnalysis(tab.id, {
       type: "MIA_ANALYZE",
       name,
       mode

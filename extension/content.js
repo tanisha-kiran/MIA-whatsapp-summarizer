@@ -61,6 +61,7 @@
         if (item) downloadICS(item);
       };
     });
+    body.querySelector("[data-custom-reminder]").onclick = addCustomReminder;
   }
 
   function esc(s) {
@@ -91,10 +92,55 @@
       ${deadlines.map(d =>
         `<button class="mia-reminder" data-ics="1">Add reminder: ${esc(d.title || d.text || "deadline")}</button>`
       ).join("")}
+      <button class="mia-reminder" data-custom-reminder="1">Add a reminder</button>
       <div class="mia-foot">Processed locally • No cloud AI</div>
     `;
   }
 
+  function addCustomReminder() {
+    const title = prompt("What should this reminder be called?");
+    if (!title?.trim()) return;
+
+    const date = prompt(`What date is "${title.trim()}" on?\nEnter YYYY-MM-DD:`);
+    if (!date) return;
+
+    const time = prompt("What time should the reminder be for?\nEnter 24-hour time, HH:MM:");
+    if (!time) return;
+
+    const dateMatch = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    const timeMatch = time.match(/^(\d{2}):(\d{2})$/);
+    if (!dateMatch || !timeMatch) {
+      alert("Enter the date as YYYY-MM-DD and the time as HH:MM.");
+      return;
+    }
+
+    const [, year, month, day] = dateMatch;
+    const [, hour, minute] = timeMatch;
+    const start = new Date(
+      Number(year),
+      Number(month) - 1,
+      Number(day),
+      Number(hour),
+      Number(minute)
+    );
+
+    if (
+      start.getFullYear() !== Number(year) ||
+      start.getMonth() !== Number(month) - 1 ||
+      start.getDate() !== Number(day) ||
+      start.getHours() !== Number(hour) ||
+      start.getMinutes() !== Number(minute)
+    ) {
+      alert("That date or time isn't valid. Please try again.");
+      return;
+    }
+
+    downloadICS({
+      title: title.trim(),
+      text: `Reminder: ${title.trim()}`,
+      date_time: `${date}T${time}:00`
+    });
+  }
 
 function downloadICS(item) {
   const rawDate = item?.date_time;

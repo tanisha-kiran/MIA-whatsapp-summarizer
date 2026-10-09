@@ -34,7 +34,7 @@ In Chrome, open `chrome://extensions`, enable **Developer mode**, choose **Load 
 
 Open WhatsApp Web and the conversation you want to review. Load the messages you want MIA to analyze, click the MIA extension, enter your name, choose a catch-up mode, and select **Analyze current chat**.
 
-Click **Add reminder** on a deadline to download an `.ics` calendar file. Open or import that file in your calendar app to add the event.
+Click **Add reminder** on a detected deadline, or **Add a reminder** to create one manually, to download an `.ics` calendar file. Open or import that file in your calendar app to add the event.
 
 ## Privacy
 
@@ -50,15 +50,21 @@ WhatsApp Web's DOM is not a stable public API. MIA reads messages currently load
 
 ## Response quality metrics
 
-Quick pilot evaluation of the local `qwen2.5:3b` backend against **5 manually labeled fictional chats** (25 binary category-presence decisions across mentions, tasks, important messages, decisions, and deadlines):
+### Evaluation method
 
-| Category | Precision | Recall | F1 |
-|---|---:|---:|---:|
-| Mentions | 80.0% | 100.0% | 88.9% |
-| Tasks | 66.7% | 100.0% | 80.0% |
-| Important messages | 33.3% | 100.0% | 50.0% |
-| Decisions | 33.3% | 50.0% | 40.0% |
-| Deadlines | 100.0% | 100.0% | 100.0% |
-| **Micro overall** | **62.5%** | **90.9%** | **74.1%** |
+Run `python evaluate.py` from the `backend/` directory while Ollama is running. The harness submits five manually labeled fictional chats (25 binary category-presence decisions) to the configured local model and reports precision, recall, F1, and confusion counts by category. A prediction counts as positive when the model returns at least one item in that category. The data is in `backend/evaluation_cases.json`.
 
-For each chat and category, a prediction counted as positive when the model returned one or more items; scores measure category presence, **not** whether individual extracted items were fully correct. This is a tiny, synthetic smoke-test set, not a representative WhatsApp benchmark. The perfect deadline score reflects only two positive examples. Treat all results as preliminary; a larger, diverse, independently labeled test set is needed before making accuracy claims.
+### Pilot results
+
+| Category | Initial prompt P / R / F1 | Refined prompt P / R / F1 |
+|---|---:|---:|
+| Mentions | 80.0% / 100.0% / 88.9% | 100.0% / 25.0% / 40.0% |
+| Tasks | 66.7% / 100.0% / 80.0% | 100.0% / 100.0% / 100.0% |
+| Important messages | 33.3% / 100.0% / 50.0% | 0.0% / 0.0% / 0.0% |
+| Decisions | 33.3% / 50.0% / 40.0% | 100.0% / 50.0% / 66.7% |
+| Deadlines | 100.0% / 100.0% / 100.0% | 100.0% / 100.0% / 100.0% |
+| **Micro overall** | **62.5% / 90.9% / 74.1%** | **85.7% / 54.5% / 66.7%** |
+
+Each cell lists **precision / recall / F1**. The second run used more specific instructions about user ownership, explicit decisions, important updates, and dates. It raised overall precision but lowered recall and micro F1 on this pilot; the prompt change is **not a demonstrated overall improvement**.
+
+These category-presence scores do not measure whether each returned item is factually correct. This is a tiny synthetic smoke test, not a representative WhatsApp benchmark. The perfect deadline result covers only two positive cases, and model output can vary between runs. Use a larger, diverse, independently labeled dataset before making accuracy claims.

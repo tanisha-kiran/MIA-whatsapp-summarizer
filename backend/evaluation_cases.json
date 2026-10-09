@@ -1,0 +1,86 @@
+[
+  {
+    "id": "clear-positive",
+    "name": "Maya",
+    "messages": [
+      {"text": "Maya, please send the slides by 2026-10-12 at 17:00.", "outgoing": false},
+      {"text": "Maya: I'll send them before the meeting.", "outgoing": true},
+      {"text": "We agreed to use the blue design.", "outgoing": false},
+      {"text": "The printer is in the office.", "outgoing": false}
+    ],
+    "expected": {
+      "mentions": true,
+      "tasks": true,
+      "important": false,
+      "decisions": true,
+      "deadlines": true
+    }
+  },
+  {
+    "id": "smalltalk-negative",
+    "name": "Jordan",
+    "messages": [
+      {"text": "The weather is lovely today.", "outgoing": false},
+      {"text": "I watched a funny movie last night.", "outgoing": false},
+      {"text": "Thanks for sharing the photo!", "outgoing": true}
+    ],
+    "expected": {
+      "mentions": false,
+      "tasks": false,
+      "important": false,
+      "decisions": false,
+      "deadlines": false
+    }
+  },
+  {
+    "id": "name-and-date-traps",
+    "name": "Alex",
+    "messages": [
+      {"text": "Maya liked the reminder, but there is no deadline and nobody needs to do anything.", "outgoing": false},
+      {"text": "Sam, could you upload the draft by 2026-11-09 at 12:00?", "outgoing": false},
+      {"text": "Alex, the meeting room changed to the library.", "outgoing": false},
+      {"text": "We are considering several options and have not decided yet.", "outgoing": false}
+    ],
+    "expected": {
+      "mentions": true,
+      "tasks": false,
+      "important": true,
+      "decisions": false,
+      "deadlines": true
+    }
+  },
+  {
+    "id": "other-person-task-decision",
+    "name": "Nina",
+    "messages": [
+      {"text": "Omar, please book a table for Friday.", "outgoing": false},
+      {"text": "Let's go with the garden theme.", "outgoing": false},
+      {"text": "Nina sent the photos yesterday.", "outgoing": false},
+      {"text": "No exact meeting time has been set.", "outgoing": false}
+    ],
+    "expected": {
+      "mentions": true,
+      "tasks": false,
+      "important": false,
+      "decisions": true,
+      "deadlines": false
+    }
+  },
+  {
+    "id": "direct-task-no-date",
+    "name": "Lee",
+    "messages": [
+      {"text": "Lee, please review the draft and send your feedback.", "outgoing": false},
+      {"text": "I will prepare the agenda.", "outgoing": true},
+      {"text": "The colors look nice.", "outgoing": false},
+      {"text": "We can decide on the venue later.", "outgoing": false}
+    ],
+    "expected": {
+      "mentions": true,
+      "tasks": true,
+      "important": false,
+      "decisions": false,
+      "deadlines": false
+    }
+  }
+]
